@@ -7,3 +7,4 @@ console.log(wasm);
 wasm.main();
 
 console.log(wasm.add(1, 2));
+console.log(wasm.concat_strings(["hello", "world"]));

@@ -1,8 +1,14 @@
+use js_sys::{Array, JsString};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub fn add(a: i32, b: i32) -> i32 {
     return a + b;
+}
+
+#[wasm_bindgen]
+pub fn concat_strings(strings: Array) -> JsString {
+    strings.join(&" ")
 }
 
 // Called when the wasm module is instantiated

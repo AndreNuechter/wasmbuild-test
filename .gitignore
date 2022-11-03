@@ -1,1 +1,4 @@
 /target
+lib/rs_lib_bg.wasm
+.gitignore
+.vscode/settings.json
