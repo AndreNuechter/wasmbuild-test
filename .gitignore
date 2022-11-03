@@ -1,4 +1,4 @@
 /target
 lib/rs_lib_bg.wasm
-.gitignore
+lib/rs_lib.generated.js
 .vscode/settings.json

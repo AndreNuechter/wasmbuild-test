@@ -29,6 +29,15 @@ pub fn main() -> Result<(), JsValue> {
     Ok(())
 }
 
+#[wasm_bindgen]
+extern "C" {
+    fn alert(s: &str);
+}
+#[wasm_bindgen]
+pub fn greet(name: JsString) {
+    alert(&format!("Hello, {}!", name));
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
