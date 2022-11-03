@@ -11,20 +11,26 @@ pub fn concat_strings(strings: Array) -> JsString {
     strings.join(&" ")
 }
 
-// Called when the wasm module is instantiated
+// Called when the wasm module is instantiated...not working
 #[wasm_bindgen(start)]
-pub fn main() -> Result<(), JsValue> {
+pub fn init_dom() -> Result<(), JsValue> {
     // Use `web_sys`'s global `window` function to get a handle on the global
     // window object.
-    let window = web_sys::window().expect("no global `window` exists");
-    let document = window.document().expect("should have a document on window");
+    let document = web_sys::window()
+        .unwrap()
+        .document()
+        .expect("should have a document on window");
     let body = document.body().expect("document should have a body");
 
-    // Manufacture the element we're gonna append
-    let val = document.create_element("p")?;
-    val.set_inner_html("Hello from Rust!");
+    let heading = document.create_element("h1")?;
+    heading.set_text_content(Some("Hello from Rust!"));
 
-    body.append_child(&val)?;
+    let para = document.create_element("p")?;
+    para.set_inner_html("<strong>Bold</strong> moves");
+
+    [heading, para].iter().for_each(|element| {
+        body.append_child(&element).unwrap();
+    });
 
     Ok(())
 }
@@ -36,6 +42,15 @@ extern "C" {
 #[wasm_bindgen]
 pub fn greet(name: JsString) {
     alert(&format!("Hello, {}!", name));
+}
+
+#[wasm_bindgen(module = "/js/foo.js")]
+extern "C" {
+    fn js_add(a: u32, b: u32) -> u32;
+}
+#[wasm_bindgen]
+pub fn add2(a: u32, b: u32) -> u32 {
+    js_add(a, b)
 }
 
 #[cfg(test)]

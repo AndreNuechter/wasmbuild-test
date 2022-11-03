@@ -2,3 +2,4 @@
 lib/rs_lib_bg.wasm
 lib/rs_lib.generated.js
 .vscode/settings.json
+lib/snippets/*
