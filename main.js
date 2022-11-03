@@ -1,5 +1,9 @@
 import { instantiate } from "./lib/rs_lib.generated.js";
 
-const { add } = await instantiate();
+const wasm = await instantiate();
 
-console.log(add(1, 2));
+console.log(wasm);
+
+wasm.main();
+
+console.log(wasm.add(1, 2));
